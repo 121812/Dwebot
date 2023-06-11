@@ -14,9 +14,9 @@ Dwebot = Dao + WeChat + Bot， 这是一个使用 Go 语言编写的机器人，
     ```shell
     go mod download
     ```
-2. 配置 config.json
-    ```json
-    // Discord_bot_auth discord 机器人 key
+2. 配置 discord 机器人 key 
+    ```go
+    // 打开 config.json 配置 Discord_bot_auth
     {
     "Discord_bot_auth": ""
     }
