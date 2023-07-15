@@ -1,3 +1,8 @@
 {
-    "Discord_bot_auth": ""
+    "Discord_bot_auth": "",
+    "Mysql_host":"",
+    "Mysql_port":"",
+    "Mysql_db":"",
+    "Mysql_user":"",
+    "Mysql_password":""
 }

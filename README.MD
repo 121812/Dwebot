@@ -7,6 +7,7 @@ Dwebot = Dao + WeChat + Bot， 这是一个使用 Go 语言编写的机器人，
 - 查询NFT地板价
 - 微信标记同步discord
 - 公众号更新推送群组
+- 群聊消息入库
 
 ## 安装
 
@@ -14,11 +15,16 @@ Dwebot = Dao + WeChat + Bot， 这是一个使用 Go 语言编写的机器人，
     ```shell
     go mod download
     ```
-2. 配置 discord 机器人 key 
+2. 配置文件 
     ```go
-    // 打开 config.json 配置 Discord_bot_auth
+    // 打开 config.json 配置 Discord_bot_auth，Mysql 连接
     {
     "Discord_bot_auth": ""
+    "Mysql_host":"",
+    "Mysql_port":"",
+    "Mysql_db":"",
+    "Mysql_user":"",
+    "Mysql_password":""
     }
     ```
 3. 配置 discord 频道

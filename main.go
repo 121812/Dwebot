@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/beevik/etree"
 	"github.com/eatmoreapple/openwechat"
@@ -12,6 +13,10 @@ import (
 
 func main() {
 
+	// 初始化数据库
+	Init_db()
+
+	// 初始化日志文件
 	logfile, err := os.Create("logfile.log")
 	if err != nil {
 		log.Fatal(err)
@@ -56,6 +61,29 @@ func main() {
 					msg.Owner().SendTextToGroup(groups.SearchByNickName(1, "test")[0], name+"公众号更新："+"\n"+title.Text()+"\n"+url.Text())
 					log.Println(name+"\n"+title.Text()+"\n"+url.Text(), "\n", url.Text(), msg.Content)
 				}
+			}
+		}
+
+		// 群聊天记录入库
+		if msg.IsSendByGroup() && !msg.IsSystem() && !msg.IsArticle() {
+			sender, _ := msg.SenderInGroup()
+			sendgr, _ := msg.Sender()
+			sender_content := msg.Content
+			fmt.Println(sender, err, sender_content, sendgr)
+
+			year, month, day := time.Now().Date()
+			hour, min, sec := time.Now().Hour(), time.Now().Minute(), time.Now().Second()
+
+			WechatChatLog := Wechat_chat_log{
+				Time:         fmt.Sprintf("%d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, min, sec),
+				Send_user:    sender.NickName,
+				Send_content: sender_content,
+				Send_group:   sendgr.NickName,
+			}
+			fmt.Println(*sendgr)
+
+			if Insert_wechat_chat_log(WechatChatLog) {
+				fmt.Println("入库成功")
 			}
 		}
 
